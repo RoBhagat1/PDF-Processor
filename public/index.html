@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Upload PDF</title>
+    <style>body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:40px}label{display:block;margin-bottom:8px}input[type=file]{margin-bottom:12px}</style>
+  </head>
+  <body>
+    <h1>Upload a PDF</h1>
+    <form id="uploadForm">
+      <label for="pdf">Select PDF file</label>
+      <input id="pdf" name="pdf" type="file" accept="application/pdf" />
+      <br />
+      <button type="submit">Upload</button>
+    </form>
+    <div id="status"></div>
+
+    <script>
+      const form = document.getElementById('uploadForm');
+      const status = document.getElementById('status');
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const input = document.getElementById('pdf');
+        if (!input.files.length) return status.textContent = 'No file selected';
+        const file = input.files[0];
+        const fd = new FormData();
+        fd.append('pdf', file);
+        status.textContent = 'Uploading...';
+        try {
+          const res = await fetch('/upload', { method: 'POST', body: fd });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || 'Upload failed');
+          status.textContent = 'Uploaded: ' + data.file;
+        } catch (err) {
+          status.textContent = 'Error: ' + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>

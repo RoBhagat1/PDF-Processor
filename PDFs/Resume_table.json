@@ -1,0 +1,232 @@
+{
+  "text": "\n\nRohan Bhagat \n(408) 646-2771 • rohanb@berkeley.edu \nEDUCATION \nUniversity of California, Berkeley: GPA: 3.7/4.0                            Aug 2023 – May 2027 \nDegree: Bachelor of Arts in Data Science & Cognitive Science \nRelevant Coursework: Data Structures | Algorithms | Software Programming | Artificial Intelligence | Object-Oriented Programming | Data Science \n| Discrete Math | Probability Theory | Linear Algebra | Machine Structures | Computer Architecture | Differential Equations | Computational Cognition \n \nPROFESSIONAL EXPERIENCE \nAmazon, SDE Intern, Seattle, WA                                                                  May 2025 – Aug 2025 \n• Architected and implemented a NLP data analytics chatbot for querying large-scale datasets across Amazon’s real estate operations. \n• Developed RESTful APIs and integrated AWS services, including Bedrock, Lambda, Step Functions, S3, and DynamoDB, to manage \nbackend workflows. Engineered a responsive React.js and TypeScript front-end application connected to AWS backend services for real-\ntime data interaction and visualization.  \n• Optimized business intelligence workflows by reducing dashboard creation time by 50% and replacing 100+ static dashboards, cutting \ninformation retrieval time from 2–3 weeks to under 2 minutes.  \n \nBerkeley AI Safety Student Initiative, Technical Co-lead, Berkeley, CA                                                                                Aug 2025 – Present                \n• Organized a 20+ student paper reading group to analyze and explore the latest advances in Artificial Intelligence and AI safety topics. \n• Conducted in-depth technical breakdowns of cutting-edge papers (e.g., alignment strategies, interpretability methods, scalable oversight), \nenabling participants to critically evaluate methodologies and results. \n \nGeo-Swarm, SWE Intern at CleanTech Startup, Berkeley, CA                                                      Sep 2024 – May 2025 \n• Simulated drone, robot, and wind turbine operations using NVIDIA Isaac and Python to enable real-time damage detection, automated \nrepair procedures, and in-depth analytics using PCA and k-means clustering. Projected for 26% reduction in maintenance costs. \n• Used tools like PyTorch and Scikit-learn to analyze simulations results and do logistic regression for proactive maintenance.  \n \nTetra Tokyo, SWE Intern at AI Marketing Startup, Berkeley, CA                                           Jan 2025 – May 2025 \n• Designed an AI tool that enables multilingual content creation using GPT APIs. Explored text generation for business model creation.  \n• Utilized Hugging Face and Kaggle libraries to build models for language conversions and build cross cultural brand messaging.  \n \nTen Strands, Data Science Intern at Educational Advocacy Nonprofit, Berkeley, CA                                      Jan 2025 – May 2025 \n• Collected and analyzed data from 1000+ schools regarding school’s environmental commitments to identify insights into green policy.  \n• Created visualizations, including KDE charts, joint plots, and histograms with Matplotlib, Plotly, and Seaborn for policy decision-makers.  \n \nComputer Science Mentors, Computer Science Senior Mentor, Berkeley, CA                            Sep 2024 – Present \n• Teaching Computer Programming & Computer Architecture to 10 students weekly in largest and most impactful Berkeley CS program.\t\n• Created and led weekly lessons, focused on Python, Scheme, SQL, C, RISC-V, computer architecture, and other foundational CS skills. \t\n \nUndergraduate Marketing Association, Strategy Director, Berkeley, CA                             Aug 2023 – Present \n• Contracted Strategy Consultant for UCSF (Jan 2025 – May 2025), AWS (Aug 2024 – Jan 2025), Yelp (Jan 2024 – May 2024), and \nPoshmark (Aug 2023 – Jan 2024) to grow Gen-Z marketing. Led 6-8 consultants to design campaigns rolled out across colleges nationwide. \n• Grew engagement among demographic by 40%, worked biweekly with C-suite executives to develop market analysis requirements. \n \nPROJECTS \nSpace Debris Visualizer: \n• Developed predictive models to visualize and analyze space debris data through Matplotlib. Used sklearn for linear regression, logistic \nregression, and time-series forecasting, enhancing accuracy of orbital decay and collision risk predictions for space debris in Earth’s orbit.  \n• Leveraged advanced visualization libraries like Bokeh, Plotly, and Panel, to create intuitive and dynamic UI for real-time data interaction.  \n \nSpam Vs Ham Classifier Model: \n• Developed logistic regression spam filter using a real world dataset with 10,000+ labeled examples of spam and ham emails. \n• Conducted exploratory data analysis and feature engineering to improve generalization, resulting in higher model accuracy of 97.5%.  \n \nHandwritten Digit Classification Neural Network in RISC-V: \n• Developed a neural network in RISC-V assembly, comprised of 1000+ lines of code, to classify handwritten digit images.  Trained network \non 60,000+ images from the MNIST dataset using a single activation layer, resulting in accuracy of 96%. \n• Designed a single-layer neural network leveraging matrix multiplication and activation functions (ReLU and ArgMax) for classification. \n \n \nSkills: Python, Java, SQL, JavaScript, Pytorch, GPT APIs, Hugging Face, NVIDIA Isaac, Data Visualizations, APIs, AWS, Pandas, Google \nFirebase,  C/C++, TensorFlow, EasyOCR, YOLO, React,  Numpy,  Scikit-learn,  Matplotlib,  Node.js,  Plotly, Machine Learning,  Agile \nMethodology, Git, Microsoft Office, Django, Flask, Typescript.  ",
+  "table": [
+    [
+      "Rohan Bhagat"
+    ],
+    [
+      "(408) 646-2771 • rohanb@berkeley.edu"
+    ],
+    [
+      "EDUCATION"
+    ],
+    [
+      "University of California, Berkeley: GPA: 3.7/4.0",
+      "Aug 2023 – May 2027"
+    ],
+    [
+      "Degree: Bachelor of Arts in Data Science & Cognitive Science"
+    ],
+    [
+      "Relevant Coursework: Data Structures | Algorithms | Software Programming | Artificial Intelligence | Object-Oriented Programming | Data Science"
+    ],
+    [
+      "| Discrete Math | Probability Theory | Linear Algebra | Machine Structures | Computer Architecture | Differential Equations | Computational Cognition"
+    ],
+    [
+      "PROFESSIONAL EXPERIENCE"
+    ],
+    [
+      "Amazon, SDE Intern, Seattle, WA",
+      "May 2025 – Aug 2025"
+    ],
+    [
+      "• Architected and implemented a NLP data analytics chatbot for querying large-scale datasets across Amazon’s real estate operations."
+    ],
+    [
+      "• Developed RESTful APIs and integrated AWS services",
+      "including Bedrock",
+      "Lambda",
+      "Step Functions",
+      "S3",
+      "and DynamoDB",
+      "to manage"
+    ],
+    [
+      "backend workflows. Engineered a responsive React.js and TypeScript front-end application connected to AWS backend services for real-"
+    ],
+    [
+      "time data interaction and visualization."
+    ],
+    [
+      "• Optimized business intelligence workflows by reducing dashboard creation time by 50% and replacing 100+ static dashboards",
+      "cutting"
+    ],
+    [
+      "information retrieval time from 2–3 weeks to under 2 minutes."
+    ],
+    [
+      "Berkeley AI Safety Student Initiative, Technical Co-lead, Berkeley, CA",
+      "Aug 2025 – Present"
+    ],
+    [
+      "• Organized a 20+ student paper reading group to analyze and explore the latest advances in Artificial Intelligence and AI safety topics."
+    ],
+    [
+      "• Conducted in-depth technical breakdowns of cutting-edge papers (e.g.",
+      "alignment strategies",
+      "interpretability methods",
+      "scalable oversight)",
+      ""
+    ],
+    [
+      "enabling participants to critically evaluate methodologies and results."
+    ],
+    [
+      "Geo-Swarm, SWE Intern at CleanTech Startup, Berkeley, CA",
+      "Sep 2024 – May 2025"
+    ],
+    [
+      "• Simulated drone",
+      "robot",
+      "and wind turbine operations using NVIDIA Isaac and Python to enable real-time damage detection",
+      "automated"
+    ],
+    [
+      "repair procedures",
+      "and in-depth analytics using PCA and k-means clustering. Projected for 26% reduction in maintenance costs."
+    ],
+    [
+      "• Used tools like PyTorch and Scikit-learn to analyze simulations results and do logistic regression for proactive maintenance."
+    ],
+    [
+      "Tetra Tokyo, SWE Intern at AI Marketing Startup, Berkeley, CA",
+      "Jan 2025 – May 2025"
+    ],
+    [
+      "• Designed an AI tool that enables multilingual content creation using GPT APIs. Explored text generation for business model creation."
+    ],
+    [
+      "• Utilized Hugging Face and Kaggle libraries to build models for language conversions and build cross cultural brand messaging."
+    ],
+    [
+      "Ten Strands, Data Science Intern at Educational Advocacy Nonprofit, Berkeley, CA",
+      "Jan 2025 – May 2025"
+    ],
+    [
+      "• Collected and analyzed data from 1000+ schools regarding school’s environmental commitments to identify insights into green policy."
+    ],
+    [
+      "• Created visualizations",
+      "including KDE charts",
+      "joint plots",
+      "and histograms with Matplotlib",
+      "Plotly",
+      "and Seaborn for policy decision-makers."
+    ],
+    [
+      "Computer Science Mentors, Computer Science Senior Mentor, Berkeley, CA",
+      "Sep 2024 – Present"
+    ],
+    [
+      "• Teaching Computer Programming & Computer Architecture to 10 students weekly in largest and most impactful Berkeley CS program."
+    ],
+    [
+      "• Created and led weekly lessons",
+      "focused on Python",
+      "Scheme",
+      "SQL",
+      "C",
+      "RISC-V",
+      "computer architecture",
+      "and other foundational CS skills."
+    ],
+    [
+      "Undergraduate Marketing Association, Strategy Director, Berkeley, CA",
+      "Aug 2023 – Present"
+    ],
+    [
+      "• Contracted Strategy Consultant for UCSF (Jan 2025 – May 2025)",
+      "AWS (Aug 2024 – Jan 2025)",
+      "Yelp (Jan 2024 – May 2024)",
+      "and"
+    ],
+    [
+      "Poshmark (Aug 2023 – Jan 2024) to grow Gen-Z marketing. Led 6-8 consultants to design campaigns rolled out across colleges nationwide."
+    ],
+    [
+      "• Grew engagement among demographic by 40%",
+      "worked biweekly with C-suite executives to develop market analysis requirements."
+    ],
+    [
+      "PROJECTS"
+    ],
+    [
+      "Space Debris Visualizer:"
+    ],
+    [
+      "• Developed predictive models to visualize and analyze space debris data through Matplotlib. Used sklearn for linear regression",
+      "logistic"
+    ],
+    [
+      "regression",
+      "and time-series forecasting",
+      "enhancing accuracy of orbital decay and collision risk predictions for space debris in Earth’s orbit."
+    ],
+    [
+      "• Leveraged advanced visualization libraries like Bokeh",
+      "Plotly",
+      "and Panel",
+      "to create intuitive and dynamic UI for real-time data interaction."
+    ],
+    [
+      "Spam Vs Ham Classifier Model:"
+    ],
+    [
+      "• Developed logistic regression spam filter using a real world dataset with 10",
+      "000+ labeled examples of spam and ham emails."
+    ],
+    [
+      "• Conducted exploratory data analysis and feature engineering to improve generalization",
+      "resulting in higher model accuracy of 97.5%."
+    ],
+    [
+      "Handwritten Digit Classification Neural Network in RISC-V:"
+    ],
+    [
+      "• Developed a neural network in RISC-V assembly, comprised of 1000+ lines of code, to classify handwritten digit images.",
+      "Trained network"
+    ],
+    [
+      "on 60",
+      "000+ images from the MNIST dataset using a single activation layer",
+      "resulting in accuracy of 96%."
+    ],
+    [
+      "• Designed a single-layer neural network leveraging matrix multiplication and activation functions (ReLU and ArgMax) for classification."
+    ],
+    [
+      "Skills: Python",
+      "Java",
+      "SQL",
+      "JavaScript",
+      "Pytorch",
+      "GPT APIs",
+      "Hugging Face",
+      "NVIDIA Isaac",
+      "Data Visualizations",
+      "APIs",
+      "AWS",
+      "Pandas",
+      "Google"
+    ],
+    [
+      "Firebase,",
+      "C/C++, TensorFlow, EasyOCR, YOLO, React,",
+      "Numpy,",
+      "Scikit-learn,",
+      "Matplotlib,",
+      "Node.js,",
+      "Plotly, Machine Learning,",
+      "Agile"
+    ],
+    [
+      "Methodology",
+      "Git",
+      "Microsoft Office",
+      "Django",
+      "Flask",
+      "Typescript."
+    ]
+  ]
+}
