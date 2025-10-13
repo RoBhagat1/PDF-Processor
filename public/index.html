@@ -14,6 +14,14 @@
       <br />
       <button type="submit">Upload</button>
     </form>
+    <hr />
+    <h2>Bulk upload a folder of PDFs</h2>
+    <p>Choose a folder (Chrome/Safari support via <code>webkitdirectory</code>)</p>
+    <input id="folderInput" type="file" webkitdirectory directory multiple />
+    <br />
+    <button id="bulkUploadBtn">Upload Folder PDFs</button>
+    <button id="processFolderBtn">Process PDFs Folder</button>
+    <div id="bulkStatus"></div>
     <div id="status"></div>
 
     <script>
@@ -21,7 +29,7 @@
       const status = document.getElementById('status');
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
-        const input = document.getElementById('pdf');
+    const input = document.getElementById('pdf');
         if (!input.files.length) return status.textContent = 'No file selected';
         const file = input.files[0];
         const fd = new FormData();
@@ -34,6 +42,45 @@
           status.textContent = 'Uploaded: ' + data.file;
         } catch (err) {
           status.textContent = 'Error: ' + err.message;
+        }
+      });
+
+      // Bulk folder upload
+      const folderInput = document.getElementById('folderInput');
+      const bulkUploadBtn = document.getElementById('bulkUploadBtn');
+      const processFolderBtn = document.getElementById('processFolderBtn');
+      const bulkStatus = document.getElementById('bulkStatus');
+
+      bulkUploadBtn.addEventListener('click', async () => {
+        const files = Array.from(folderInput.files || []).filter(f => f.name.toLowerCase().endsWith('.pdf'));
+        if (!files.length) return bulkStatus.textContent = 'No PDF files found in selected folder.';
+        bulkStatus.textContent = `Uploading ${files.length} PDFs...`;
+        let completed = 0;
+        for (const f of files) {
+          const fd = new FormData();
+          fd.append('pdf', f, f.name);
+          try {
+            const res = await fetch('/upload', { method: 'POST', body: fd });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Upload failed');
+            completed++;
+            bulkStatus.textContent = `Uploaded ${completed}/${files.length}: ${f.name}`;
+          } catch (err) {
+            bulkStatus.textContent = `Error uploading ${f.name}: ${err.message}`;
+            console.error(err);
+          }
+        }
+        bulkStatus.textContent = `Upload complete: ${completed}/${files.length} files uploaded.`;
+      });
+
+      processFolderBtn.addEventListener('click', async () => {
+        bulkStatus.textContent = 'Processing server-side folder...';
+        try {
+          const res = await fetch('/process-folder', { method: 'POST' });
+          const data = await res.json();
+          bulkStatus.textContent = `Processing complete. Results: ${JSON.stringify(data.results)}`;
+        } catch (err) {
+          bulkStatus.textContent = 'Processing failed: ' + err.message;
         }
       });
     </script>

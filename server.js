@@ -47,6 +47,7 @@ app.post('/upload', upload.single('pdf'), (req, res) => {
 
 // PDF processing: extract text and produce a simple table
 const pdf = require('pdf-parse');
+const unzipper = require('unzipper');
 
 // Helper: convert extracted text into a naive table by splitting lines and columns
 function textToTable(text) {
@@ -100,6 +101,82 @@ app.post('/process', upload.single('pdf'), async (req, res) => {
   } catch (err) {
     console.error('Processing error:', err);
     res.status(500).send({ error: 'Processing failed', details: err.message });
+  }
+});
+
+// Process all PDFs in a folder (default: PDFs/). Optional query: ?folder=subdir
+app.post('/process-folder', async (req, res) => {
+  try {
+    const folder = req.query.folder ? path.join(uploadDir, req.query.folder) : uploadDir;
+    if (!fs.existsSync(folder)) return res.status(404).send({ error: 'folder not found' });
+    const files = fs.readdirSync(folder).filter(f => /\.pdf$/i.test(f));
+    const results = [];
+    for (const f of files) {
+      const full = path.join(folder, f);
+      try {
+        const data = fs.readFileSync(full);
+        const parsed = await pdf(data);
+        const text = parsed.text || '';
+        const table = textToTable(text);
+        const cleanName = path.basename(f).replace(/^\d+_/, '').replace(/\.pdf$/i, '');
+        const outName = `${cleanName}_table.json`;
+        fs.writeFileSync(path.join(folder, outName), JSON.stringify({ text, table }, null, 2), 'utf8');
+        results.push({ file: f, saved: outName, ok: true });
+      } catch (err) {
+        results.push({ file: f, ok: false, error: err.message });
+      }
+    }
+    res.send({ results });
+  } catch (err) {
+    res.status(500).send({ error: 'folder processing failed', details: err.message });
+  }
+});
+
+// Upload a zip of PDFs, extract into PDFs/ and process extracted PDFs
+const zipUpload = multer({ dest: path.join(__dirname, 'tmp') });
+app.post('/upload-zip', zipUpload.single('zip'), async (req, res) => {
+  if (!req.file) return res.status(400).send({ error: 'No zip uploaded' });
+  const extracted = [];
+  try {
+    await fs.createReadStream(req.file.path)
+      .pipe(unzipper.Parse())
+      .on('entry', entry => {
+        const fileName = entry.path;
+        const type = entry.type; // 'Directory' or 'File'
+        if (/\.pdf$/i.test(fileName) && type === 'File') {
+          const dest = path.join(uploadDir, path.basename(fileName));
+          entry.pipe(fs.createWriteStream(dest));
+          extracted.push(path.basename(fileName));
+        } else {
+          entry.autodrain();
+        }
+      })
+      .promise();
+
+    // Process extracted PDFs
+    const summary = [];
+    for (const f of extracted) {
+      try {
+        const full = path.join(uploadDir, f);
+        const data = fs.readFileSync(full);
+        const parsed = await pdf(data);
+        const text = parsed.text || '';
+        const table = textToTable(text);
+        const cleanName = path.basename(f).replace(/^\d+_/, '').replace(/\.pdf$/i, '');
+        const outName = `${cleanName}_table.json`;
+        fs.writeFileSync(path.join(uploadDir, outName), JSON.stringify({ text, table }, null, 2), 'utf8');
+        summary.push({ file: f, saved: outName, ok: true });
+      } catch (err) {
+        summary.push({ file: f, ok: false, error: err.message });
+      }
+    }
+
+    res.send({ extracted, summary });
+  } catch (err) {
+    res.status(500).send({ error: 'zip processing failed', details: err.message });
+  } finally {
+    // cleanup tmp uploaded zip
+    try { fs.unlinkSync(req.file.path); } catch (e) {}
   }
 });
 
