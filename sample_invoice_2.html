@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sample Invoice 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 20px;
+    }
+    .company-info {
+      margin-bottom: 30px;
+    }
+    .invoice-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    .amount {
+      text-align: right;
+    }
+    .totals {
+      float: right;
+      width: 300px;
+    }
+    .totals table {
+      margin-bottom: 0;
+    }
+    .totals td {
+      border: none;
+    }
+    .total-row {
+      font-weight: bold;
+      font-size: 1.2em;
+      border-top: 2px solid #333 !important;
+    }
+    @media print {
+      body {
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>INVOICE</h1>
+  </div>
+
+  <div class="company-info">
+    <strong>From: ACME Supply Corp</strong><br>
+    123 Business Street<br>
+    New York, NY 10001<br>
+    Phone: (555) 123-4567
+  </div>
+
+  <div class="invoice-info">
+    <div>
+      <strong>Bill To:</strong><br>
+      Your Company Name<br>
+      456 Office Avenue<br>
+      Los Angeles, CA 90001
+    </div>
+    <div style="text-align: right;">
+      <strong>Invoice Number:</strong> INV-2025-002<br>
+      <strong>Invoice Date:</strong> 02/15/2025<br>
+      <strong>Due Date:</strong> 03/15/2025
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th style="text-align: center;">Quantity</th>
+        <th class="amount">Unit Price</th>
+        <th class="amount">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Office Paper (500 sheets)</td>
+        <td style="text-align: center;">12</td>
+        <td class="amount">$24.50</td>
+        <td class="amount">$294.00</td>
+      </tr>
+      <tr>
+        <td>Printer Ink Cartridges</td>
+        <td style="text-align: center;">6</td>
+        <td class="amount">$46.00</td>
+        <td class="amount">$276.00</td>
+      </tr>
+      <tr>
+        <td>Desk Organizers</td>
+        <td style="text-align: center;">2</td>
+        <td class="amount">$15.50</td>
+        <td class="amount">$31.00</td>
+      </tr>
+      <tr>
+        <td>Stapler Heavy Duty</td>
+        <td style="text-align: center;">3</td>
+        <td class="amount">$22.00</td>
+        <td class="amount">$66.00</td>
+      </tr>
+      <tr>
+        <td>Whiteboard Markers (Pack of 12)</td>
+        <td style="text-align: center;">5</td>
+        <td class="amount">$17.50</td>
+        <td class="amount">$87.50</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <table>
+      <tr>
+        <td>Subtotal:</td>
+        <td class="amount">$754.50</td>
+      </tr>
+      <tr>
+        <td>Tax (8%):</td>
+        <td class="amount">$60.36</td>
+      </tr>
+      <tr class="total-row">
+        <td>Total:</td>
+        <td class="amount">$814.86</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="clear: both; margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd;">
+    <p><strong>Payment Terms:</strong> Net 30 days</p>
+    <p><strong>Note:</strong> Thank you for your business!</p>
+  </div>
+</body>
+</html>

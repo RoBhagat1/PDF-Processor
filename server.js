@@ -49,6 +49,13 @@ app.post('/upload', upload.single('pdf'), (req, res) => {
 const pdf = require('pdf-parse');
 const unzipper = require('unzipper');
 
+// Invoice discrepancy detection modules
+const { parseInvoice } = require('./lib/invoiceParser');
+const { addInvoice, loadHistory } = require('./lib/dataStore');
+const { updateStatistics } = require('./lib/statisticsCalculator');
+const { detectDiscrepancies } = require('./lib/discrepancyDetector');
+const { generateReport, generateTextReport, generateHTMLReport } = require('./lib/reportGenerator');
+
 // Helper: convert extracted text into a naive table by splitting lines and columns
 function textToTable(text) {
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
@@ -185,6 +192,142 @@ app.get('/files', (req, res) => {
     if (err) return res.status(500).send('Failed to list files');
     res.json(files.filter(f => f !== '.gitkeep'));
   });
+});
+
+// ===== INVOICE DISCREPANCY DETECTION ENDPOINTS =====
+
+// POST /process-invoice - Process invoice with discrepancy detection
+app.post('/process-invoice', upload.single('pdf'), async (req, res) => {
+  try {
+    let dataBuffer;
+    let filename;
+
+    if (req.file) {
+      dataBuffer = fs.readFileSync(req.file.path);
+      filename = req.file.filename;
+    } else if (req.body && req.body.file) {
+      const target = path.join(uploadDir, path.basename(req.body.file));
+      if (!fs.existsSync(target)) return res.status(404).send({ error: 'file not found' });
+      dataBuffer = fs.readFileSync(target);
+      filename = req.body.file;
+    } else {
+      return res.status(400).send({ error: 'No file uploaded or filename provided' });
+    }
+
+    // Extract text from PDF
+    const parsed = await pdf(dataBuffer);
+    const text = parsed.text || '';
+
+    // Parse invoice structure
+    const invoiceData = parseInvoice(text);
+    invoiceData.filename = filename;
+
+    // Get configuration from request
+    const config = {
+      percentageThreshold: parseFloat(req.body.percentageThreshold) || 0.15,
+      stdDevThreshold: parseFloat(req.body.stdDevThreshold) || 2,
+      mode: req.body.mode || 'both',
+      minSamples: parseInt(req.body.minSamples) || 3,
+    };
+
+    // Detect discrepancies
+    const discrepancyResult = detectDiscrepancies(invoiceData, config);
+
+    // Generate report
+    const report = generateReport(invoiceData, discrepancyResult);
+
+    // Save invoice to history
+    addInvoice(invoiceData);
+
+    // Update statistics
+    updateStatistics();
+
+    // Save report to disk
+    const sourceName = req.file?.originalname || req.body.file || filename;
+    const cleanName = path.basename(sourceName).replace(/^\d+_/, '').replace(/\.pdf$/i, '');
+    const reportPath = path.join(uploadDir, `${cleanName}_report.json`);
+    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2), 'utf8');
+
+    res.send({
+      invoice: invoiceData,
+      discrepancies: discrepancyResult,
+      report,
+      saved: reportPath,
+    });
+  } catch (err) {
+    console.error('Invoice processing error:', err);
+    res.status(500).send({ error: 'Processing failed', details: err.message });
+  }
+});
+
+// GET /statistics - Get current historical statistics
+app.get('/statistics', (req, res) => {
+  try {
+    const history = loadHistory();
+
+    res.send({
+      invoiceCount: history.invoices.length,
+      itemCount: Object.keys(history.itemAverages || {}).length,
+      vendorCount: Object.keys(history.vendorAverages || {}).length,
+      itemAverages: history.itemAverages,
+      vendorAverages: history.vendorAverages,
+      lastUpdated: history.lastUpdated,
+    });
+  } catch (err) {
+    res.status(500).send({ error: 'Failed to load statistics', details: err.message });
+  }
+});
+
+// POST /recalculate-statistics - Manually trigger statistics recalculation
+app.post('/recalculate-statistics', (req, res) => {
+  try {
+    const stats = updateStatistics();
+
+    res.send({
+      message: 'Statistics recalculated successfully',
+      itemCount: Object.keys(stats.itemAverages).length,
+      vendorCount: Object.keys(stats.vendorAverages).length,
+      stats,
+    });
+  } catch (err) {
+    res.status(500).send({ error: 'Failed to recalculate statistics', details: err.message });
+  }
+});
+
+// GET /report/:filename - Get HTML report for a specific invoice
+app.get('/report/:filename', (req, res) => {
+  try {
+    const reportFile = path.join(uploadDir, `${req.params.filename}_report.json`);
+
+    if (!fs.existsSync(reportFile)) {
+      return res.status(404).send('Report not found. Make sure to process the invoice first.');
+    }
+
+    const report = JSON.parse(fs.readFileSync(reportFile, 'utf8'));
+    const html = generateHTMLReport(report);
+
+    res.type('html').send(html);
+  } catch (err) {
+    res.status(500).send({ error: 'Failed to generate report', details: err.message });
+  }
+});
+
+// GET /report/:filename/text - Get plain text report
+app.get('/report/:filename/text', (req, res) => {
+  try {
+    const reportFile = path.join(uploadDir, `${req.params.filename}_report.json`);
+
+    if (!fs.existsSync(reportFile)) {
+      return res.status(404).send('Report not found. Make sure to process the invoice first.');
+    }
+
+    const report = JSON.parse(fs.readFileSync(reportFile, 'utf8'));
+    const text = generateTextReport(report);
+
+    res.type('text').send(text);
+  } catch (err) {
+    res.status(500).send({ error: 'Failed to generate report', details: err.message });
+  }
 });
 
 app.listen(PORT, () => {
